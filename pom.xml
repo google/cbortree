@@ -12,6 +12,24 @@
   <version>0.01.00</version>
   <name>CborTree</name>
   <description>A Java API for decoding, manipulating, and encoding CBOR data items.</description>
+  <url>https://github.com/google/cbortree</url>
+  <issueManagement>
+    <system>GitHub Issues</system>
+    <url>https://github.com/google/cbortree/issues</url>
+  </issueManagement>
+  <inceptionYear>2018</inceptionYear>
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <scm>
+    <connection>scm:git:https://github.com/google/cbortree.git</connection>
+    <developerConnection>scm:git:git@github.com:google/cbortree.git</developerConnection>
+    <url>https://github.com/google/cbortree</url>
+  </scm>
   <build>
     <plugins>
       <plugin>
