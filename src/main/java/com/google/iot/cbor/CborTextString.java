@@ -73,7 +73,9 @@ public abstract class CborTextString extends CborObject {
 
     @Override
     public final String toJsonString() {
-        return JSONObject.quote(stringValue());
+        return JSONObject.quote(stringValue())
+                /* Remove redundant escaping */
+                .replaceAll("\\\\/", "/");
     }
 
     @Override
