@@ -467,18 +467,41 @@ public abstract class CborArray extends CborObject implements Iterable<CborObjec
     }
 
     @Override
-    public final String toString() {
+    public final String toString(int indentLevel) {
         StringBuilder sb = new StringBuilder("[");
         boolean first = true;
+
+        if (indentLevel >= 0) {
+            indentLevel++;
+        }
+
         for (CborObject obj : this) {
             if (first) {
                 first = false;
             } else {
                 sb.append(",");
             }
-            sb.append(obj.toString());
+
+            if (indentLevel >= 0) {
+                sb.append("\n");
+                for (int i = 0; i < indentLevel; i++) {
+                    sb.append("\t");
+                }
+            }
+
+            sb.append(obj.toString(indentLevel));
         }
+
+        if (!isEmpty() && indentLevel > 0) {
+            indentLevel--;
+            sb.append("\n");
+            for (int i = 0; i < indentLevel; i++) {
+                sb.append("\t");
+            }
+        }
+
         sb.append("]");
+
         int tag = getTag();
 
         return tag == CborTag.UNTAGGED ? sb.toString() : tag + "(" + sb.toString() + ")";

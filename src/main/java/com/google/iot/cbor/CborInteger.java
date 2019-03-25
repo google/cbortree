@@ -184,6 +184,11 @@ public abstract class CborInteger extends CborObject implements CborNumber {
     }
 
     @Override
+    public String toString(int ignore) {
+        return toString();
+    }
+
+    @Override
     public String toString() {
         String ret = Long.toString(longValue());
 

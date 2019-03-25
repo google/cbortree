@@ -402,6 +402,8 @@ public abstract class CborObject {
     /**
      * Describes this data item using CBOR diagnostic notation.
      *
+     * <p>No additional whitespace is added for readability.
+     *
      * <p>The output is similar to that of {@link #toJsonString()} except that it also includes tag
      * and encoding information that is CBOR-specific.
      *
@@ -410,7 +412,27 @@ public abstract class CborObject {
      *
      * @return a {@link String} describing the data item.
      * @see <a href="https://tools.ietf.org/html/rfc7049#section-6">CBOR Diagnostic Notation</a>
+     * @see #toString(int)
      */
     @Override
-    public abstract String toString();
+    public String toString() {
+        return toString(-1);
+    }
+
+    /**
+     * Describes this data item using CBOR diagnostic notation at the given indentation level.
+     *
+     * <p>The output is similar to that of {@link #toJsonString()} except that it also includes tag
+     * and encoding information that is CBOR-specific.
+     *
+     * <p>The returned string is intended as a diagnostic aid and not intended to be
+     * machine-readable.
+     *
+     * @param indentLevel the indentation level of the string to output. A negative value
+     *                    indicates no newlines or whitespace should be added.
+     * @return a {@link String} describing the data item.
+     * @see <a href="https://tools.ietf.org/html/rfc7049#section-6">CBOR Diagnostic Notation</a>
+     * @see #toString()
+     */
+    public abstract String toString(int indentLevel);
 }

@@ -134,6 +134,11 @@ public abstract class CborTextString extends CborObject {
     }
 
     @Override
+    public String toString(int ignore) {
+        return toString();
+    }
+
+    @Override
     public String toString() {
         String ret = toJsonString();
 

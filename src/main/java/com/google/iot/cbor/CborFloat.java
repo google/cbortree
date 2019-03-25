@@ -214,6 +214,11 @@ public abstract class CborFloat extends CborObject implements CborNumber {
     }
 
     @Override
+    public String toString(int ignore) {
+        return toString();
+    }
+
+    @Override
     public String toString() {
         int ai = getAdditionalInformation();
         String ret =

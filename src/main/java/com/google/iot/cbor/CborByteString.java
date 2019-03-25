@@ -195,6 +195,11 @@ public abstract class CborByteString extends CborObject {
     }
 
     @Override
+    public String toString(int ignore) {
+        return toString();
+    }
+
+    @Override
     public String toString() {
         String ret = "h'" + toBase16String() + "'";
 

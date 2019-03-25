@@ -444,19 +444,41 @@ public abstract class CborMap extends CborObject {
     }
 
     @Override
-    public String toString() {
+    public String toString(int indentLevel) {
         StringBuilder sb = new StringBuilder("{");
         boolean first = true;
+
+        if (indentLevel >= 0) {
+            indentLevel++;
+        }
+
         for (Map.Entry<CborObject, CborObject> entry : mapValue().entrySet()) {
             if (first) {
                 first = false;
             } else {
                 sb.append(",");
             }
-            sb.append(entry.getKey().toString());
+
+            if (indentLevel >= 0) {
+                sb.append("\n");
+                for (int i = 0; i < indentLevel; i++) {
+                    sb.append("\t");
+                }
+            }
+
+            sb.append(entry.getKey().toString(indentLevel));
             sb.append(":");
-            sb.append(entry.getValue().toString());
+            sb.append(entry.getValue().toString(indentLevel));
         }
+
+        if (!isEmpty() && indentLevel > 0) {
+            indentLevel--;
+            sb.append("\n");
+            for (int i = 0; i < indentLevel; i++) {
+                sb.append("\t");
+            }
+        }
+
         sb.append("}");
 
         int tag = getTag();

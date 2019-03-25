@@ -256,6 +256,11 @@ public final class CborSimple extends CborObject {
     }
 
     @Override
+    public String toString(int ignore) {
+        return toString();
+    }
+
+    @Override
     public final String toString() {
         String ret;
         switch (mValue) {
