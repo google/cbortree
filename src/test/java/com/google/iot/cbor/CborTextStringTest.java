@@ -75,6 +75,8 @@ public class CborTextStringTest extends CborTestBase {
         assertEquals(uri.toString(), obj.toJavaObject(String.class));
         assertEquals(obj, CborObject.createFromJavaObject(obj.toJavaObject(Object.class)));
         assertEquals(obj, CborObject.createFromJavaObject(obj.toJavaObject(URI.class)));
+        assertEquals(uri.toASCIIString(), CborObject.createFromCborByteArray(obj.toCborByteArray()).toJavaObject());
+        assertEquals(uri, CborObject.createFromCborByteArray(obj.toCborByteArray()).toJavaObject(URI.class));
     }
 
     @Test
