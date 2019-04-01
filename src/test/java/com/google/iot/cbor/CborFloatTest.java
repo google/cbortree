@@ -36,6 +36,28 @@ public class CborFloatTest extends CborTestBase {
         assertParseInequality("f93c00", "d9d9f7f93c00");
     }
 
+    // Test for <https://github.com/google/cbortree/issues/1>.
+    @Test
+    void testNegativeDouble() throws Exception {
+        byte[] array = decode("fbbfb99999a0000000");
+
+        String output = "-0.10000000149011612_3";
+
+        CborObject obj = assertParseToString(output, array);
+
+        assertTrue(obj.isValidJson());
+
+        byte[] encoded = obj.toCborByteArray();
+
+        CborObject obj2 = assertParseToString(output, encoded);
+
+        assertEquals(obj, obj2);
+
+        assertArrayEquals(array, encoded);
+
+        assertEquals(obj, obj.copy());
+    }
+
     @Test
     void testHalfUnity() throws Exception {
         byte[] array = decode("f93c00");

@@ -98,8 +98,13 @@ class CborReaderImpl implements CborReader {
             } else if (additionalInfo == CborObject.ADDITIONAL_INFO_EXTRA_8B) {
                 additionalData = mDecoderStream.getLong();
 
-                // Overflow check
-                if (additionalData < 0) {
+                // We perform an overflow check here by checking for negative values.
+                // We don't currently support the full use of 64 bit unsigned integers,
+                // so any number larger than Long.MAX_VALUE will ultimately be wrapped
+                // around to be negative. This check identifies such cases and errors
+                // out, EXCEPT when we are a double-precision float.
+                // <https://github.com/google/cbortree/issues/1>
+                if (additionalData < 0 && majorType != CborMajorType.OTHER) {
                     final String explanation =
                             String.format(
                                     Locale.ENGLISH,
@@ -112,7 +117,6 @@ class CborReaderImpl implements CborReader {
                         additionalData = CborTag.UNTAGGED;
 
                     } else {
-                        // If this was a tag, then we can simply ignore it.
                         LOGGER.warning(explanation + ", stopping");
                         throw new CborParseException(explanation);
                     }
