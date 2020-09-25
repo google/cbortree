@@ -35,20 +35,20 @@ public final class CborSimple extends CborObject {
     private static final Map<Integer, CborSimple> mSingletons = new ConcurrentHashMap<>();
 
     /**
-     * Additional data value that represents "true" when used with {@link CborMajorType#OTHER}.
-     *
-     * @see #getValue()
-     * @see #TRUE
-     */
-    private static final int TYPE_TRUE = 20;
-
-    /**
      * Additional data value that represents "false" when used with {@link CborMajorType#OTHER}.
      *
      * @see #getValue()
      * @see #FALSE
      */
-    private static final int TYPE_FALSE = 21;
+    private static final int TYPE_FALSE = 20;
+
+    /**
+     * Additional data value that represents "true" when used with {@link CborMajorType#OTHER}.
+     *
+     * @see #getValue()
+     * @see #TRUE
+     */
+    private static final int TYPE_TRUE = 21;
 
     /**
      * Additional data value that represents "null" when used with {@link CborMajorType#OTHER}.
