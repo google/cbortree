@@ -77,7 +77,7 @@ following:
 Gradle:
 
     dependencies {
-	  compile 'com.google.iot.cbor:cbor:0.01.01'
+	  compile 'com.google.iot.cbor:cbor:0.01.02'
 	}
 
 Maven:
@@ -85,7 +85,7 @@ Maven:
     <dependency>
 	  <groupId>com.google.iot.cbor</groupId>
 	  <artifactId>cbor</artifactId>
-	  <version>0.01.01</version>
+	  <version>0.01.02</version>
     </dependency>
 
 ## License ##

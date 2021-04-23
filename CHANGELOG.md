@@ -1,6 +1,10 @@
 Change Log
 ==========
 
+## Version 0.01.02
+_2021-04-23_
+ * Fix swapped boolean values
+
 ## Version 0.01.01
 _2019-04-02_
  * Remove redundant escaping of slashes for JSON and diagnostic output.
