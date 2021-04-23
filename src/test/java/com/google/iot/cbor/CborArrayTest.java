@@ -289,7 +289,7 @@ public class CborArrayTest extends CborTestBase {
     void testSimpleValueArray() {
         byte[] array = decode("9ff4f5f6f7f0f8ffff");
 
-        String output = "[true,false,null,undefined,simple(16),simple(255)]";
+        String output = "[false,true,null,undefined,simple(16),simple(255)]";
 
         CborObject obj = assertParseToString(output, array);
 

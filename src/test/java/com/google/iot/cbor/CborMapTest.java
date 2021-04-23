@@ -129,7 +129,7 @@ public class CborMapTest extends CborTestBase {
     void testParser8() throws Exception {
         byte[] array = decode("bf6346756ef563416d7421ff");
 
-        String output = "{\"Fun\":false,\"Amt\":-2}";
+        String output = "{\"Fun\":true,\"Amt\":-2}";
 
         CborMap obj = (CborMap) assertParseToString(output, array);
 
@@ -149,7 +149,7 @@ public class CborMapTest extends CborTestBase {
     void testParser9() throws Exception {
         byte[] array = decode("bf6346756ef563416d7421a0f7ff");
 
-        String output = "{\"Fun\":false,\"Amt\":-2,{}:undefined}";
+        String output = "{\"Fun\":true,\"Amt\":-2,{}:undefined}";
 
         CborMap obj = (CborMap) assertParseToString(output, array);
 
@@ -161,7 +161,7 @@ public class CborMapTest extends CborTestBase {
 
         assertEquals(obj, obj.copy());
 
-        assertEquals("{\"Fun\":false,\"Amt\":-2,\"{}\":\"undefined\"}", obj.toJsonString());
+        assertEquals("{\"Fun\":true,\"Amt\":-2,\"{}\":\"undefined\"}", obj.toJsonString());
 
         // This is not equals because CborSimple.UNDEFINED gets converted to null...
         assertNotEquals(obj, CborObject.createFromJavaObject(obj.toJavaObject(Map.class)));
@@ -175,7 +175,7 @@ public class CborMapTest extends CborTestBase {
     void testParser10() throws Exception {
         byte[] array = decode("bf6346756ef563416d7421a001ff");
 
-        String output = "{\"Fun\":false,\"Amt\":-2,{}:1}";
+        String output = "{\"Fun\":true,\"Amt\":-2,{}:1}";
 
         CborMap obj = (CborMap) assertParseToString(output, array);
 
@@ -187,7 +187,7 @@ public class CborMapTest extends CborTestBase {
 
         assertEquals(obj, obj.copy());
 
-        assertEquals("{\"Fun\":false,\"Amt\":-2,\"{}\":1}", obj.toJsonString());
+        assertEquals("{\"Fun\":true,\"Amt\":-2,\"{}\":1}", obj.toJsonString());
 
         assertEquals(obj, CborObject.createFromJavaObject(obj.toJavaObject(Map.class)));
         assertThrows(
