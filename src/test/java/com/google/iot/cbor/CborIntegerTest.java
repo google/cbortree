@@ -16,10 +16,11 @@
 
 package com.google.iot.cbor;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 import java.util.logging.Logger;
-import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @SuppressWarnings({"ConstantConditions", "unused"})
 public class CborIntegerTest extends CborTestBase {
@@ -225,5 +226,14 @@ public class CborIntegerTest extends CborTestBase {
         assertThrows(
                 CborConversionException.class,
                 () -> CborObject.createFromJavaObject(obj.toJavaObject(String.class)));
+    }
+
+    @Test
+    void testLongOverflow() {
+        byte[] array = decode("1b8ac7230489e80000");
+
+        String output = "10000000000000000000";
+
+        CborObject obj = assertParseToString(output, array);
     }
 }

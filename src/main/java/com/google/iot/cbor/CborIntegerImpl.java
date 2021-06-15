@@ -16,22 +16,32 @@
 
 package com.google.iot.cbor;
 
+import javax.annotation.Nullable;
+
 final class CborIntegerImpl extends CborInteger {
     private final long mValue;
     private final int mTag;
+    private final Integer mMajorType;
 
     @Override
     public int getTag() {
         return mTag;
     }
 
-    CborIntegerImpl(long value, int tag) {
+    CborIntegerImpl(long value, int tag, @Nullable Integer majorType) {
         if (!CborTag.isValid(tag)) {
             throw new IllegalArgumentException("Invalid tag value " + tag);
         }
 
         mTag = tag;
         mValue = value;
+        mMajorType = majorType;
+    }
+
+    @Override
+    public int getMajorType() {
+        if(mMajorType != null) return mMajorType;
+        return super.getMajorType();
     }
 
     @Override

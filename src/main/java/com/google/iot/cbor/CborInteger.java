@@ -15,6 +15,8 @@
  */
 package com.google.iot.cbor;
 
+import javax.annotation.Nullable;
+
 /** CBOR integer object interface. */
 public abstract class CborInteger extends CborObject implements CborNumber {
     // Prohibit users from subclassing for now.
@@ -25,7 +27,11 @@ public abstract class CborInteger extends CborObject implements CborNumber {
     }
 
     public static CborInteger create(long value, int tag) {
-        return new CborIntegerImpl(value, tag);
+        return create(value, tag, null);
+    }
+
+    public static CborInteger create(long value, int tag, @Nullable Integer majorType) {
+        return new CborIntegerImpl(value, tag, majorType);
     }
 
     static int calcAdditionalInformation(long val) {
@@ -58,7 +64,7 @@ public abstract class CborInteger extends CborObject implements CborNumber {
     }
 
     @Override
-    public final int getMajorType() {
+    public int getMajorType() {
         return (longValue() < 0) ? CborMajorType.NEG_INTEGER : CborMajorType.POS_INTEGER;
     }
 
@@ -190,7 +196,13 @@ public abstract class CborInteger extends CborObject implements CborNumber {
 
     @Override
     public String toString() {
-        String ret = Long.toString(longValue());
+        String ret;
+        if(getMajorType() == CborMajorType.POS_INTEGER) {
+            // handle the case of a 64bit unsigned positive integer value
+            ret = Long.toUnsignedString(longValue());
+        } else {
+            ret = Long.toString(longValue());
+        }
 
         int tag = getTag();
 

@@ -101,8 +101,8 @@ class CborReaderImpl implements CborReader {
                 // We perform an overflow check here by checking for negative values.
                 // We don't currently support the full use of 64 bit unsigned integers,
                 // so any number larger than Long.MAX_VALUE will ultimately be wrapped
-                // around to be negative. This check identifies such cases and errors
-                // out, EXCEPT when we are a double-precision float.
+                // around to be negative. This check identifies such cases and warns
+                // the user, EXCEPT when we are a double-precision float.
                 // <https://github.com/google/cbortree/issues/1>
                 if (additionalData < 0 && majorType != CborMajorType.OTHER) {
                     final String explanation =
@@ -117,8 +117,8 @@ class CborReaderImpl implements CborReader {
                         additionalData = CborTag.UNTAGGED;
 
                     } else {
-                        LOGGER.warning(explanation + ", stopping");
-                        throw new CborParseException(explanation);
+                        LOGGER.warning(explanation +
+                                ", long wrapped to negative, use Long.toUnsignedString() for display");
                     }
                 }
 
@@ -145,12 +145,8 @@ class CborReaderImpl implements CborReader {
                     return readDataItem();
 
                 case CborMajorType.POS_INTEGER:
-                    if (additionalData < 0) {
-                        throw new CborParseException();
-                    } else {
-                        if (mRemainingObjects != UNSPECIFIED) mRemainingObjects--;
-                        return CborInteger.create(additionalData, tag);
-                    }
+                    if (mRemainingObjects != UNSPECIFIED) mRemainingObjects--;
+                    return CborInteger.create(additionalData, tag, CborMajorType.POS_INTEGER);
 
                 case CborMajorType.NEG_INTEGER:
                     if (additionalData < 0) {
